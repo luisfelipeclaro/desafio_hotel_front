@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-12">
+      <h1>Novo Hóspede</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="this.hs.form" (ngSubmit)="onSubmit()">
+      <!-- <input type="hidden" formControlName="$key"> -->
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input class="form-control" formControlName="nome" [ngClass]="{'is-invalid':submitted && formControls.nome.errors}">
+        <div class="invalid-feedback" *ngIf="submitted && formControls.nome.errors">
+          Campo obrigatório.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="documento">Documento</label>
+        <input class="form-control" formControlName="documento" [ngClass]="{'is-invalid':submitted && formControls.documento.errors}">
+        <div class="invalid-feedback" *ngIf="submitted && formControls.documento.errors">
+            Campo obrigatório.
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input class="form-control" formControlName="telefone" [ngClass]="{'is-invalid':submitted && formControls.telefone.errors}">
+        <div class="invalid-feedback" *ngIf="submitted && formControls.telefone.errors">
+            Campo obrigatório.
+          </div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Enviar">
+      </div>
+      <div class="alert alert-success"  *ngIf="showSuccessMessage">
+        Hóspede criado com sucesso.
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6 hide">
+    <h1>Hóspedes Cadastrados</h1>
+    <table class="table table-sm table-hover">
+      <thead>
+        <th>Nome</th>
+        <th>Documento</th>
+        <th>Telefone</th>
+      </thead>
+      <ng-container *ngFor="let hospede of hospedes$">
+        <tr>
+          <td>{{ hospede.nome }}</td>
+          <td>{{ hospede.documento }}</td>
+          <td>{{ hospede.telefone }}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <a routerLink="/index" class="btn btn-light">Voltar</a>
+</footer>

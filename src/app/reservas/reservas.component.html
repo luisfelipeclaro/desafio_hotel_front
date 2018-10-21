@@ -1,0 +1,102 @@
+<div class="row" style="margin-top:15px;">
+  <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          Novo Check-in
+        </div>
+        <div class="card-body">
+          <form [formGroup]="this.rs.form" (ngSubmit)="onSubmit()">
+            <div class="row form-group">
+              <div class="col-md-6">
+                <label for="dataEntrada">Data/hora de entrada</label>
+                <input type="date" class="form-control" formControlName="dataEntrada" [ngClass]="{'is-invalid':submitted && formControls.dataEntrada.errors}">
+                <div class="invalid-feedback" *ngIf="submitted && formControls.dataEntrada.errors">
+                  Campo obrigatório.
+                </div>
+              </div>
+              <div class="col-md-6">
+                  <label for="dataSaida">Data/hora de saída</label>
+                  <input type="date" class="form-control" formControlName="dataSaida">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-6">
+                <div formGroupName="hospede">
+                    <label for="pessoa">Pessoa</label>
+                    <select class="form-control" (change)="optionSelected($event.target.value)">
+                        <option value="">Selecione um hóspede</option>
+                        <ng-container *ngFor="let hospede of hospedes$">
+                          <option [value]="hospede.id">{{hospede.nome}}</option>
+                        </ng-container>
+                    </select>
+                    <input type="hidden" class="form-control" formControlName="nome" [ngClass]="{'is-invalid':submitted && formControls.hospede.errors}">
+                    <div class="invalid-feedback" *ngIf="submitted && formControls.hospede.errors">
+                      Campo obrigatório.
+                    </div>
+                    <input type="hidden" formControlName="id">
+                    <input type="hidden" formControlName="documento">
+                    <input type="hidden" formControlName="telefone">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="adicionalVeiculo">Possui veículo</label>
+                <input type="checkbox" value="true" class="form-control" formControlName="adicionalVeiculo" style="height: 15px!important;width: 15px!important;"> 
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-12">
+                <input type="submit" value="Salvar" class="btn btn-primary">
+              </div>
+            </div>
+            <div class="alert alert-success"  *ngIf="showSuccessMessage">
+              Reserva criada com sucesso.
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="row" style="margin-top:15px;">
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            Consultas
+          </div>
+          <div class="card-body">
+            <form action="">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="">Filtrar por:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <input [checked]='true' (click)="setradio('abertas')" name="radioFilter" id="reservasAberto" value="abertas" type="radio">&nbsp;<label for="reservasAberto">Pessoas ainda presentes</label>
+                </div>
+                <div class="col-md-4">
+                  <input (click)="setradio('fechadas')" name="radioFilter" id="reservasFechado" value="fechadas" type="radio">&nbsp;<label for="reservasFechado">Pessoas que já deixaram o hotel</label>
+                  </div>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead>
+                    <th width="33.33%">Nome</th>
+                    <th width="33.33%">Documento</th>
+                    <th width="33.33%">Valor gasto (R$)</th>
+                  </thead>
+                  <ng-container *ngFor="let reserva of reserva$">
+                    <tr>
+                      <td>{{ reserva.hospede.nome }}</td>
+                      <td>{{ reserva.hospede.documento }}</td>
+                      <td>{{ reserva.valor | number : '1.2-2' }}</td>
+                    </tr>
+                  </ng-container>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
