@@ -8,7 +8,7 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 @Component({
   selector: 'app-reservas',
   templateUrl: './reservas.component.html',
-  styleUrls: ['./reservas.component.css']
+  // styleUrls: ['./reservas.component.css']
 })
 
 export class ReservasComponent implements OnInit {
